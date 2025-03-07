@@ -1,1 +1,5 @@
-0.35
+文本orig_0.8_add.txt查重结果：0.63
+文本orig_0.8_del.txt查重结果：0.64
+文本orig_0.8_dis_1.txt查重结果：0.92
+文本orig_0.8_dis_10.txt查重结果：0.71
+文本orig_0.8_dis_15.txt查重结果：0.35

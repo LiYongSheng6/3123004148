@@ -22,7 +22,7 @@ public class Main {
      * 主函数，程序入口
      * 命令行参数，依次为：原文文件路径、抄袭版文件路径、答案文件路径
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // 检查命令行参数数量是否正确
         //if (args.length != 3) {
         //    System.err.println("Usage: java -jar main.jar <originalFile> <plagiarizedFile> <answerFile>");
@@ -44,6 +44,7 @@ public class Main {
         String outputFilePath = "D:\\code\\Java\\PaperPlagiarismCheck\\src\\main\\resources\\ans.txt";
 
         // 遍历抄袭版文件路径，依次查重处理
+        StringBuilder stringBuilder = new StringBuilder();
         for (String plagiarizedFilePath : plagiarizedFilePaths) {
             try {
                 // 读取原文和抄袭版文件内容
@@ -74,14 +75,16 @@ public class Main {
                 String output = "文本" + plagiarizedTextName + "查重结果：" + result;
                 System.out.println(output);
 
-                // 将结果写入答案文件
-                writeFile(outputFilePath, output);
-                System.out.println("Result written to " + outputFilePath);
+                // 将结果添加到StringBuilder中
+                stringBuilder.append(output).append("\n");
             } catch (IOException e) {
                 System.err.println("Error processing files: " + e.getMessage());
                 System.exit(1);
             }
         }
+        // 将结果写入答案文件
+        writeFile(outputFilePath, stringBuilder.toString());
+        System.out.println("Result written to " + outputFilePath);
     }
 }
 
