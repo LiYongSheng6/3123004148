@@ -18,6 +18,7 @@ import static com.example.utils.NGramUtil.getFrequencyMap;
 public class TextHandlerUtil {
     /**
      * 预处理文本，去除标点符号和非中文字符
+     *
      * @param text 原始文本
      * @return 处理后的纯中文字符串
      */
@@ -28,9 +29,10 @@ public class TextHandlerUtil {
 
     /**
      * 检查抄袭版文本与原文的相似度
+     *
      * @param plagiarizedFilePath 抄袭版文本路径
-     * @param originalFilePath 原文路径
-     * @param stringBuilder 用于存储输出结果的StringBuilder
+     * @param originalFilePath    原文路径
+     * @param stringBuilder       用于存储输出结果的StringBuilder
      */
     public static void checkSimilarity(String plagiarizedFilePath, String originalFilePath, StringBuilder stringBuilder) {
         try {
@@ -64,7 +66,7 @@ public class TextHandlerUtil {
 
             // 将结果添加到StringBuilder中
             stringBuilder.append(output).append("\n");
-        }  catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.err.println("Error: File not found - " + e.getMessage());
             System.exit(1);
         } catch (UnsupportedEncodingException e) {

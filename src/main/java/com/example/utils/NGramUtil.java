@@ -15,8 +15,9 @@ import java.util.stream.IntStream;
 public class NGramUtil {
     /**
      * 生成n-gram列表
+     *
      * @param text 处理后的文本
-     * @param n n-gram的长度
+     * @param n    n-gram的长度
      * @return n-gram列表
      */
     public static List<String> generateNGrams(String text, int n) {
@@ -36,6 +37,7 @@ public class NGramUtil {
 
     /**
      * 统计n-gram的词频
+     *
      * @param nGrams n-gram列表
      * @return n-gram词频映射表
      */
@@ -53,6 +55,7 @@ public class NGramUtil {
 
     /**
      * 计算余弦相似度
+     *
      * @param map1 原文的n-gram词频映射表
      * @param map2 抄袭版的n-gram词频映射表
      * @return 余弦相似度值

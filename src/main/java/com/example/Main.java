@@ -44,7 +44,7 @@ public class Main {
             for (String plagiarizedFilePath : plagiarizedFilePaths) {
                 checkSimilarity(plagiarizedFilePath, originalFilePath, stringBuilder);
             }
-        }else {
+        } else {
             // 从命令行参数中获取文件路径
             originalFilePath = args[0];
             outputFilePath = args[2];
