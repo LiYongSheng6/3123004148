@@ -2,6 +2,7 @@ package com.example.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,6 +30,8 @@ public class FileOperationUtil {
                 // 将读取到的行内容添加到StringBuilder对象中
                 content.append(line).append("\n");
             }
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("File not found: " + filePath);
         } catch (IOException e) {
             // 如果文件读取失败，抛出异常
             throw new IOException("Failed to read file: " + filePath, e);

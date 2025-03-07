@@ -1,6 +1,8 @@
 package com.example.utils;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
 import java.util.List;
 import java.util.Map;
 
@@ -62,8 +64,14 @@ public class TextHandlerUtil {
 
             // 将结果添加到StringBuilder中
             stringBuilder.append(output).append("\n");
+        } catch (FileNotFoundException e) {
+            System.err.println("Error: File not found - " + e.getMessage());
+            System.exit(1);
+        } catch (MalformedInputException e) {
+            System.err.println("Error: File encoding is not UTF-8 - " + e.getMessage());
+            System.exit(1);
         } catch (IOException e) {
-            System.err.println("Error processing files: " + e.getMessage());
+            System.err.println("Error: IO exception - " + e.getMessage());
             System.exit(1);
         }
     }
