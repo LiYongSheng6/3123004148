@@ -1,11 +1,12 @@
 package com.example.utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.IntStream;
 
 /**
  * @author redmi k50 ultra
@@ -29,12 +30,17 @@ public class NGramUtil {
      * @return n-gram列表
      */
     public static List<String> generateNGrams(String text, int n) {
+        // 创建一个空的n-gram列表
         List<String> nGrams = new ArrayList<>();
+        // 获取文本的长度
         int length = text.length();
-        // 遍历文本，生成连续的n-gram
-        for (int i = 0; i <= length - n; i++) {
-            nGrams.add(text.substring(i, i + n));
-        }
+        // 使用并行流生成n-gram
+        IntStream.range(0, length - n + 1).parallel().forEach(i -> {
+            synchronized (nGrams) {
+                nGrams.add(text.substring(i, i + n));
+            }
+        });
+        // 返回n-gram列表
         return nGrams;
     }
 
@@ -44,11 +50,14 @@ public class NGramUtil {
      * @return n-gram词频映射表
      */
     public static Map<String, Integer> getFrequencyMap(List<String> nGrams) {
-        Map<String, Integer> freqMap = new HashMap<>();
-        // 遍历n-gram列表，统计每个n-gram的出现次数
-        for (String gram : nGrams) {
+        // 创建一个空的n-gram词频映射表
+        Map<String, Integer> freqMap = new ConcurrentHashMap<>();
+        // 使用并行流统计词频
+        nGrams.parallelStream().forEach(gram -> {
+            // 更新n-gram词频
             freqMap.put(gram, freqMap.getOrDefault(gram, 0) + 1);
-        }
+        });
+        // 返回n-gram词频映射表
         return freqMap;
     }
 
@@ -68,14 +77,12 @@ public class NGramUtil {
         double norm1 = 0.0;      // 原文向量的模
         double norm2 = 0.0;      // 抄袭版向量的模
 
-        // 计算点积和向量模
-        for (String gram : allGrams) {
-            int freq1 = map1.getOrDefault(gram, 0);
-            int freq2 = map2.getOrDefault(gram, 0);
-            dotProduct += freq1 * freq2;
-            norm1 += Math.pow(freq1, 2);
-            norm2 += Math.pow(freq2, 2);
-        }
+        // 使用流计算点积和向量模
+        dotProduct = allGrams.parallelStream()
+                .mapToDouble(gram -> map1.getOrDefault(gram, 0) * map2.getOrDefault(gram, 0))
+                .sum();
+        norm1 = map1.values().parallelStream().mapToDouble(freq -> Math.pow(freq, 2)).sum();
+        norm2 = map2.values().parallelStream().mapToDouble(freq -> Math.pow(freq, 2)).sum();
 
         // 处理分母为零的情况
         if (norm1 == 0 || norm2 == 0) {

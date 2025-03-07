@@ -43,8 +43,10 @@ public class Main {
         // 存储输出文件路径
         String outputFilePath = "D:\\code\\Java\\PaperPlagiarismCheck\\src\\main\\resources\\ans.txt";
 
-        // 遍历抄袭版文件路径，依次查重处理
+        // 创建一个StringBuilder用于存储查重结果
         StringBuilder stringBuilder = new StringBuilder();
+
+        // 遍历抄袭版文件路径，依次查重处理
         for (String plagiarizedFilePath : plagiarizedFilePaths) {
             try {
                 // 读取原文和抄袭版文件内容
