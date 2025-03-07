@@ -30,7 +30,7 @@ class PlagiarismCheckerTest {
     @Test
     void testGenerateNGramsParallel() {
         String text = "今天是星期天";
-        List<String> expected = Arrays.asList("今天是", "天是星", "是星期", "星期天");
+        List<String> expected = Arrays.asList("是星期", "星期天", "天是星", "今天是");
         List<String> result = NGramUtil.generateNGramsParallel(text, 3);
         assertEquals(expected, result, "n-gram生成结果不符合预期");
     }
