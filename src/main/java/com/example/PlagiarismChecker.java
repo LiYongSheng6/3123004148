@@ -10,7 +10,7 @@ import static com.example.utils.TextHandlerUtil.checkSimilarity;
  * * @date 2025/3/3
  */
 
-public class Main {
+public class PlagiarismChecker {
     /**
      * 主函数，程序入口
      * 命令行参数，依次为：原文文件路径、抄袭版文件路径、答案文件路径
