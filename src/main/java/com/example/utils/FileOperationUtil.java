@@ -24,7 +24,7 @@ public class FileOperationUtil {
      * @return 文件内容字符串
      * @throws IOException 如果文件读取失败
      */
-    public static String readFile(String filePath) throws IOException {
+    public static String readFileWithEncodingCheck(String filePath) throws IOException {
         // 创建一个StringBuilder对象，用于存储文件内容
         StringBuilder content = new StringBuilder();
 
@@ -61,7 +61,7 @@ public class FileOperationUtil {
      * @param content  文件内容字符串
      * @throws IOException 如果文件写入失败
      */
-    public static void writeFile(String filePath, String content) throws IOException {
+    public static void writeFileWithBuffer(String filePath, String content) throws IOException {
         // 创建一个BufferedWriter对象，用于写入文件内容
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, StandardCharsets.UTF_8))) {
             // 将文件内容写入文件

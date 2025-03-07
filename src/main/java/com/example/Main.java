@@ -2,7 +2,7 @@ package com.example;
 
 import java.io.IOException;
 
-import static com.example.utils.FileOperationUtil.writeFile;
+import static com.example.utils.FileOperationUtil.writeFileWithBuffer;
 import static com.example.utils.TextHandlerUtil.checkSimilarity;
 
 /**
@@ -55,7 +55,7 @@ public class Main {
         }
 
         // 将结果写入答案文件
-        writeFile(outputFilePath, stringBuilder.toString());
+        writeFileWithBuffer(outputFilePath, stringBuilder.toString());
         System.out.println("Result written to " + outputFilePath);
     }
 

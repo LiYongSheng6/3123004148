@@ -20,7 +20,7 @@ public class NGramUtil {
      * @param n    n-gram的长度
      * @return n-gram列表
      */
-    public static List<String> generateNGrams(String text, int n) {
+    public static List<String> generateNGramsParallel(String text, int n) {
         // 创建一个空的n-gram列表
         List<String> nGrams = new ArrayList<>();
         // 获取文本的长度
@@ -41,7 +41,7 @@ public class NGramUtil {
      * @param nGrams n-gram列表
      * @return n-gram词频映射表
      */
-    public static Map<String, Integer> getFrequencyMap(List<String> nGrams) {
+    public static Map<String, Integer> getFrequencyMapParallel(List<String> nGrams) {
         // 创建一个空的n-gram词频映射表
         Map<String, Integer> freqMap = new ConcurrentHashMap<>();
         // 使用并行流统计词频

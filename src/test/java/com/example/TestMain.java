@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static com.example.utils.FileOperationUtil.readFile;
-import static com.example.utils.FileOperationUtil.writeFile;
+import static com.example.utils.FileOperationUtil.readFileWithEncodingCheck;
+import static com.example.utils.FileOperationUtil.writeFileWithBuffer;
 import static com.example.utils.NGramUtil.computeCosineSimilarity;
-import static com.example.utils.NGramUtil.generateNGrams;
-import static com.example.utils.NGramUtil.getFrequencyMap;
+import static com.example.utils.NGramUtil.generateNGramsParallel;
+import static com.example.utils.NGramUtil.getFrequencyMapParallel;
 import static com.example.utils.TextHandlerUtil.processText;
 
 /**
@@ -43,8 +43,8 @@ public class TestMain {
         for (String plagiarizedFilePath : plagiarizedFilePaths) {
             try {
                 // 读取原文和抄袭版文件内容
-                String originalText = readFile(originalFilePath);
-                String plagiarizedText = readFile(plagiarizedFilePath);
+                String originalText = readFileWithEncodingCheck(originalFilePath);
+                String plagiarizedText = readFileWithEncodingCheck(plagiarizedFilePath);
 
                 // 预处理文本，去除标点符号和非中文字符
                 String processedOriginal = processText(originalText);
@@ -53,12 +53,12 @@ public class TestMain {
                 // 设置n-gram的长度
                 int n = 3;
                 // 生成原文和抄袭版的n-gram列表
-                List<String> originalNGrams = generateNGrams(processedOriginal, n);
-                List<String> plagiarizedNGrams = generateNGrams(processedPlagiarized, n);
+                List<String> originalNGrams = generateNGramsParallel(processedOriginal, n);
+                List<String> plagiarizedNGrams = generateNGramsParallel(processedPlagiarized, n);
 
                 // 统计n-gram的词频
-                Map<String, Integer> originalFreq = getFrequencyMap(originalNGrams);
-                Map<String, Integer> plagiarizedFreq = getFrequencyMap(plagiarizedNGrams);
+                Map<String, Integer> originalFreq = getFrequencyMapParallel(originalNGrams);
+                Map<String, Integer> plagiarizedFreq = getFrequencyMapParallel(plagiarizedNGrams);
 
                 // 计算余弦相似度
                 double similarity = computeCosineSimilarity(originalFreq, plagiarizedFreq);
@@ -78,7 +78,7 @@ public class TestMain {
             }
         }
         // 将结果写入答案文件
-        writeFile(outputFilePath, stringBuilder.toString());
+        writeFileWithBuffer(outputFilePath, stringBuilder.toString());
         System.out.println("Result written to " + outputFilePath);
     }
 }
