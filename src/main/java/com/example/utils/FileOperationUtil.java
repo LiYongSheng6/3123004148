@@ -12,6 +12,12 @@ import java.io.IOException;
  * * @date 2025/3/7
  */
 public class FileOperationUtil {
+    /**
+     * 读取文件内容
+     * @param filePath 文件路径
+     * @return 文件内容字符串
+     * @throws IOException 如果文件读取失败
+     */
     public static String readFile(String filePath) throws IOException {
         File file = new File(filePath);
         FileReader fileReader = new FileReader(file);
@@ -26,6 +32,12 @@ public class FileOperationUtil {
         return stringBuilder.toString();
     }
 
+    /**
+     * 写入文件内容
+     * @param filePath 文件路径
+     * @param content 文件内容字符串
+     * @throws IOException 如果文件写入失败
+     */
     public static void writeFile(String filePath, String content) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         writer.write(content);
