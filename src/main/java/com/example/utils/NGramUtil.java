@@ -14,16 +14,6 @@ import java.util.stream.IntStream;
  */
 public class NGramUtil {
     /**
-     * 预处理文本，去除标点符号和非中文字符
-     * @param text 原始文本
-     * @return 处理后的纯中文字符串
-     */
-    public static String processText(String text) {
-        // 使用正则表达式去除非中文字符
-        return text.replaceAll("[^\u4e00-\u9fa5]", "");
-    }
-
-    /**
      * 生成n-gram列表
      * @param text 处理后的文本
      * @param n n-gram的长度

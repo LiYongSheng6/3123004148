@@ -27,7 +27,7 @@ public class FileOperationUtil {
             String line;
             while ((line = reader.readLine()) != null) {
                 // 将读取到的行内容添加到StringBuilder对象中
-                content.append(line).append("\n");;
+                content.append(line).append("\n");
             }
         } catch (IOException e) {
             // 如果文件读取失败，抛出异常

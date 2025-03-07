@@ -9,7 +9,7 @@ import static com.example.utils.FileOperationUtil.writeFile;
 import static com.example.utils.NGramUtil.computeCosineSimilarity;
 import static com.example.utils.NGramUtil.generateNGrams;
 import static com.example.utils.NGramUtil.getFrequencyMap;
-import static com.example.utils.NGramUtil.processText;
+import static com.example.utils.TextHandlerUtil.processText;
 
 /**
  * @author redmi k50 ultra
