@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CodingErrorAction;
+import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -22,6 +26,12 @@ public class FileOperationUtil {
     public static String readFile(String filePath) throws IOException {
         // 创建一个StringBuilder对象，用于存储文件内容
         StringBuilder content = new StringBuilder();
+
+        // 使用CharsetDecoder检查文件编码是否为UTF-8
+        CharsetDecoder utf8Decoder = StandardCharsets.UTF_8.newDecoder();
+        utf8Decoder.onMalformedInput(CodingErrorAction.REPORT); // 遇到非UTF-8编码时抛出异常
+        utf8Decoder.onUnmappableCharacter(CodingErrorAction.REPORT); // 遇到无法映射的字符时抛出异常
+
         // 创建一个BufferedReader对象，用于读取文件内容
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath, StandardCharsets.UTF_8))) {
             // 循环读取文件内容，直到文件结束
@@ -32,10 +42,13 @@ public class FileOperationUtil {
             }
         } catch (FileNotFoundException e) {
             throw new FileNotFoundException("File not found: " + filePath);
+        } catch (MalformedInputException e) {
+            throw new UnsupportedEncodingException("File encoding is not UTF-8: " + filePath);
         } catch (IOException e) {
             // 如果文件读取失败，抛出异常
             throw new IOException("Failed to read file: " + filePath, e);
         }
+
         // 返回文件内容字符串
         return content.toString();
     }
