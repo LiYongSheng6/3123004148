@@ -47,7 +47,7 @@ class PlagiarismCheckerTest {
 
         double expected = 1.0;
         double result = NGramUtil.computeCosineSimilarity(map1, map2);
-        assertEquals(expected,  result,0.01, "余弦相似度计算结果不符合预期");
+        assertEquals(expected, result, 0.01, "余弦相似度计算结果不符合预期");
     }
 
     @Test
@@ -60,6 +60,7 @@ class PlagiarismCheckerTest {
 
     @Test
     void testUnsupportedEncoding() {
+
         Exception exception = assertThrows(UnsupportedEncodingException.class, () -> {
             FileOperationUtil.readFileWithEncodingCheck("non_utf8.txt");
         });
@@ -72,5 +73,27 @@ class PlagiarismCheckerTest {
             FileOperationUtil.writeFileWithBuffer("/root/protected_file.txt", "test");
         });
         assertTrue(exception.getMessage().contains("Failed to write to file"), "文件写入异常提示信息不正确");
+    }
+
+    @Test
+    void testCheckSimilarity() {
+        String plagiarizedFilePath = "D:\\code\\Java\\PaperPlagiarismCheck\\src\\main\\resources\\orig_0.8_add.txt";
+        String originalFilePath = "D:\\code\\Java\\PaperPlagiarismCheck\\src\\main\\resources\\orig.txt";
+        StringBuilder stringBuilder = new StringBuilder();
+        TextHandlerUtil.checkSimilarity(plagiarizedFilePath, originalFilePath, stringBuilder);
+        String expected = "文本orig_0.8_add.txt查重结果：0.63";
+        String result = stringBuilder.toString().trim();
+        assertEquals(expected, result, "查重结果不符合预期");
+        assertTrue(stringBuilder.toString().contains("orig_0.8_add.txt"), "查重结果不正确");
+    }
+
+    @Test
+    void PlagiarismCheckerTest() {
+        String plagiarizedFilePath = "D:\\code\\Java\\PaperPlagiarismCheck\\src\\main\\resources\\orig_0.8_add.txt";
+        String originalFilePath = "D:\\code\\Java\\PaperPlagiarismCheck\\src\\main\\resources\\orig.txt";
+        StringBuilder stringBuilder = new StringBuilder();
+        TextHandlerUtil.checkSimilarity(plagiarizedFilePath, originalFilePath, stringBuilder);
+        System.out.println(stringBuilder.toString());
+        assertTrue(stringBuilder.toString().contains("orig_0.8_add.txt"), "查重结果不正确");
     }
 }
