@@ -18,7 +18,7 @@ public class PlagiarismChecker {
     public static void main(String[] args) throws IOException {
         // 检查命令行参数数量是否正确
         if (args.length != 3) {
-            System.err.println("Usage: java -jar main.jar <originalFile> <plagiarizedFile> <answerFile>");
+            System.err.println("Usage: java -jar main.jar <originalFilePath> <plagiarizedFilePath> <answerFilePath>");
             System.exit(1);
         } else {
             // 创建一个StringBuilder用于存储查重结果
