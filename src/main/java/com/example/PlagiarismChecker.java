@@ -25,8 +25,8 @@ public class PlagiarismChecker {
             StringBuilder stringBuilder = new StringBuilder();
             // 从命令行参数中获取文件路径
             String originalFilePath = args[0];
-            String outputFilePath = args[2];
             String plagiarizedFilePath = args[1];
+            String outputFilePath = args[2];
             // 查重处理
             checkSimilarity(plagiarizedFilePath, originalFilePath, stringBuilder);
             // 将结果写入答案文件
