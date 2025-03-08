@@ -28,11 +28,6 @@
             <version>2.9.0</version>
         </dependency>
         <dependency>
-            <groupId>com.hankcs</groupId>
-            <artifactId>hanlp</artifactId>
-            <version>portable-1.7.7</version>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>RELEASE</version>
